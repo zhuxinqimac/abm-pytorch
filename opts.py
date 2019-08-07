@@ -117,8 +117,8 @@ parser.add_argument('--resume_as_pretrain', default=False, action='store_true',
                     help='resume as pretrain and train start from start_epoch')
 parser.add_argument('--use_10crop_eval', action="store_true")
 parser.add_argument('--ft_idx', default=5, type=int)
-parser.add_argument('--short_len', default=8, type=int)
-parser.add_argument('--long_len', default=8, type=int)
+parser.add_argument('--short_len', default=16, type=int)
+parser.add_argument('--long_len', default=1, type=int)
 parser.add_argument('--dense_sample', default=False, action="store_true")
 parser.add_argument('--shift_val', default=None, type=int)
 parser.add_argument('--sample_all', default=False, action="store_true")
@@ -164,11 +164,3 @@ parser.add_argument('--start-epoch', default=0, type=int, metavar='N',
 parser.add_argument('--gpus', nargs='+', type=int, default=None)
 parser.add_argument('--flow_prefix', default="flow_", type=str)
 # parser.add_argument('--flow_prefix', default="", type=str)
-
-
-
-
-
-
-
-

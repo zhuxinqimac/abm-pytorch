@@ -92,7 +92,9 @@ def main():
                            short_len=args.short_len,
                            long_len=args.long_len,
                            n_class=args.num_class,
-                           dropout=args.dropout)
+                           dropout=args.dropout, 
+                           new_length=args.new_length, 
+                           dataset=args.dataset)
         input_mean = [0.485, 0.456, 0.406]
         input_std = [0.229, 0.224, 0.225]
         totensor_div = True
@@ -100,19 +102,11 @@ def main():
     model.cuda()
     model = nn.DataParallel(model)
 
-    if 'something' in args.dataset:
-        train_augmentation = torchvision.transforms.Compose([
-            GroupMultiScaleCrop(args.input_size, [1, .875, .75, .66],
-                                max_distort=1,
-                                fix_crop=False)
-        ])
-    elif args.modality == 'Flow':
-        train_augmentation = torchvision.transforms.Compose([
-            GroupMultiScaleCrop(args.input_size, [1, .875, .75, .66],
-                                max_distort=1,
-                                fix_crop=False),
-            GroupRandomHorizontalFlip(is_flow=True)
-        ])
+    train_augmentation = torchvision.transforms.Compose([
+        GroupMultiScaleCrop(args.input_size, [1, .875, .75, .66],
+                            max_distort=1,
+                            fix_crop=False)
+    ])
 
     policies = model.module.get_optim_policies()
 
@@ -142,23 +136,22 @@ def main():
     if not args.evaluate:
         train_temp_transform = IdentityTransform()
         train_loader = torch.utils.data.DataLoader(
-            TSNDataSet_3D(
-                "",
-                args.train_list,
-                num_segments_lst=[args.num_segments],
-                modality=args.modality,
-                new_length=args.new_length,
-                image_tmpl=img_prefix + img_tmpl,
-                temp_transform=train_temp_transform,
-                transform=torchvision.transforms.Compose([
-                    train_augmentation,
-                    Stack(roll=args.arch == 'BNInception'),
-                    ToTorchFormatTensor(div=totensor_div),
-                    normalize,
-                ]),
-                gap=args.gap,
-                dataset=args.dataset,
-                dense_sample=args.dense_sample),
+            TSNDataSet_3D("",
+                          args.train_list,
+                          num_segments_lst=[args.num_segments],
+                          modality=args.modality,
+                          new_length=args.new_length,
+                          image_tmpl=img_prefix + img_tmpl,
+                          temp_transform=train_temp_transform,
+                          transform=torchvision.transforms.Compose([
+                              train_augmentation,
+                              Stack(roll=args.arch == 'BNInception'),
+                              ToTorchFormatTensor(div=totensor_div),
+                              normalize,
+                          ]),
+                          gap=args.gap,
+                          dataset=args.dataset,
+                          dense_sample=args.dense_sample),
             batch_size=args.batch_size,
             shuffle=True,
             num_workers=args.workers,
@@ -174,31 +167,30 @@ def main():
         GroupCenterCrop((args.input_size, int(1.143 * args.input_size)))
     ])
 
-    val_loader = torch.utils.data.DataLoader(
-        TSNDataSet_3D(
-            "",
-            args.val_list,
-            num_segments_lst=args.n_cframes_lst,
-            new_length=args.new_length,
-            modality=args.modality,
-            image_tmpl=img_prefix + img_tmpl,
-            random_shift=False,
-            temp_transform=val_temp_transform,
-            transform=torchvision.transforms.Compose([
-                cropping,
-                Stack(roll=args.arch == 'BNInception'),
-                ToTorchFormatTensor(div=totensor_div),
-                normalize,
-            ]),
-            gap=args.gap,
-            dataset=args.dataset,
-            dense_sample=args.dense_sample,
-            shift_val=args.shift_val,
-            sample_all=args.sample_all),
-        batch_size=args.batch_size,
-        shuffle=False,
-        num_workers=args.workers,
-        pin_memory=True)
+    val_loader = torch.utils.data.DataLoader(TSNDataSet_3D(
+        "",
+        args.val_list,
+        num_segments_lst=args.n_cframes_lst,
+        new_length=args.new_length,
+        modality=args.modality,
+        image_tmpl=img_prefix + img_tmpl,
+        random_shift=False,
+        temp_transform=val_temp_transform,
+        transform=torchvision.transforms.Compose([
+            cropping,
+            Stack(roll=args.arch == 'BNInception'),
+            ToTorchFormatTensor(div=totensor_div),
+            normalize,
+        ]),
+        gap=args.gap,
+        dataset=args.dataset,
+        dense_sample=args.dense_sample,
+        shift_val=args.shift_val,
+        sample_all=args.sample_all),
+                                             batch_size=args.batch_size,
+                                             shuffle=False,
+                                             num_workers=args.workers,
+                                             pin_memory=True)
 
     ce_criterion = torch.nn.CrossEntropyLoss().cuda()
     optimizer = torch.optim.SGD(policies,
@@ -344,7 +336,7 @@ def train(train_loader, model, ce_criterion, optimizer, epoch, train_logger):
         end = time.time()
 
         # if i > 44:
-        # break
+            # break
 
         if i % args.print_freq == 0:
             log_line = (
@@ -481,8 +473,8 @@ def validate(val_loader,
         # measure accuracy and record loss
         prec1, prec5 = accuracy(output.data, target, topk=(1, 5))
 
-        # if i>44:
-        # break
+        # if i > 44:
+            # break
 
         losses.update(loss.data, inputs.size(0))
         top1.update(prec1, inputs.size(0))

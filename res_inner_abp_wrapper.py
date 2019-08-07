@@ -15,17 +15,17 @@ from torch.nn.utils import clip_grad_norm
 from res_inner_abp import res_IABP, BasicBlock, BasicBlockIABP, Bottleneck
 from res_inner_abp import BottleneckIABP
 
-class ResIABPWarpper(res_IABP):
+class ResIABPWrapper(res_IABP):
     def __init__(self, modality='RGB', n_layer=34, short_len=8, long_len=1, 
             new_length=1, dropout=0.5, n_class=174, dataset='something'):
         print('n_layer:', n_layer)
         if n_layer == 34:
-            super(ResIABPWarpper, self).__init__(BasicBlock, BasicBlockIABP, 
+            super(ResIABPWrapper, self).__init__(BasicBlock, BasicBlockIABP, 
                     [3, 4, 6, 3], n_class, dropout, short_len)
             self.load_pretrained_weights('resnet34')
             self.expansion = 1
         elif n_layer == 50:
-            super(ResIABPWarpper, self).__init__(Bottleneck, BottleneckIABP, 
+            super(ResIABPWrapper, self).__init__(Bottleneck, BottleneckIABP, 
                     [3, 4, 6, 3], n_class, dropout, short_len)
             self.load_pretrained_weights('resnet50')
             self.expansion = 4
