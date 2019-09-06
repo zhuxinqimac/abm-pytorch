@@ -41,21 +41,11 @@ class TSNDataSet_3D(data.Dataset):
                  image_tmpl='img_{:05d}.jpg',
                  temp_transform=None,
                  transform=None,
-                 force_grayscale=False,
                  random_shift=True,
-                 test_mode=False,
-                 score_sens_mode=False,
-                 score_inf_mode=False,
-                 contrastive_mode=False,
-                 n_temp_scale=1,
-                 n_temp_shift=1,
                  gap=2,
-                 frame_extract_mode=False,
-                 num_samples_extract=32,
                  dataset='something',
                  dense_sample=False,
-                 shift_val=None,
-                 sample_all=False):
+                 shift_val=None):
 
         self.root_path = root_path
         self.list_file = list_file
@@ -67,23 +57,10 @@ class TSNDataSet_3D(data.Dataset):
         self.temp_transform = temp_transform
         self.transform = transform
         self.random_shift = random_shift
-        self.test_mode = test_mode
-        self.score_sens_mode = score_sens_mode
-        self.score_inf_mode = score_inf_mode
-        self.contrastive_mode = contrastive_mode
-        self.reverse_frames_func = ReverseFrames(self.new_length *
-                                                 self.num_segments)
-        self.shuffle_frames_func = ShuffleFrames(self.new_length *
-                                                 self.num_segments)
-        self.n_temp_scale = n_temp_scale
-        self.n_temp_shift = n_temp_shift
         self.gap = gap
         self.dataset = dataset
-        self.frame_extract_mode = frame_extract_mode
-        self.num_samples_extract = num_samples_extract
         self.dense_sample = dense_sample
         self.shift_val = shift_val
-        self.sample_all = sample_all
 
         if self.dense_sample:
             print('using dense sample for training!')

@@ -11,7 +11,8 @@ python main.py something RGB \
     --gd 20 --lr 0.001 --lr_steps 30 40 \
     --epochs 50 -b 24 -j 8 --dropout 0.5 \
     --short_len 8 \
-    --result_path sth_v1_results/top/rgb_res34
+    --result_path sth_v1_results/top_test/rgb_res34
+    #--result_path sth_v1_results/top/rgb_res34
 
 ## something_v1 rgb new_length=3, inner_abp, res34
 #CUDA_VISIBLE_DEVICES=2,3 \

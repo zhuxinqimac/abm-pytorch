@@ -30,11 +30,7 @@ def main():
     global args, best_prec1
     args = parser.parse_args()
 
-    if args.dataset == 'ucf101':
-        args.num_class = 101
-    elif args.dataset == 'hmdb51':
-        args.num_class = 51
-    elif args.dataset == 'kinetics':
+    if args.dataset == 'kinetics':
         args.num_class = 400
     elif (args.dataset == 'something') or (args.dataset == 'something_v2'):
         args.num_class = 174
@@ -58,6 +54,10 @@ def main():
             img_prefix = 'image_'
         else:
             img_prefix = 'flow_{}_'
+
+    if not os.path.exists(args.result_path):
+        os.makedirs(args.result_path)
+
     with open(os.path.join(args.result_path, 'opts.json'), 'w') as opt_file:
         json.dump(vars(args), opt_file)
 
@@ -185,8 +185,7 @@ def main():
         gap=args.gap,
         dataset=args.dataset,
         dense_sample=args.dense_sample,
-        shift_val=args.shift_val,
-        sample_all=args.sample_all),
+        shift_val=args.shift_val),
                                              batch_size=args.batch_size,
                                              shuffle=False,
                                              num_workers=args.workers,

@@ -147,30 +147,20 @@ class res_SF(nn.Module):
         '''
         x: (batch, n_channel, h, w)
         '''
-        # print('x.size:', x.size())
         x = self.conv1(x)
-        # print('after con1.size:', x.size())
         x = self.bn1(x)
         x = self.relu(x)
         x = self.maxpool(x)
-        # print('after maxpool1.size:', x.size())
 
         x = self.layer1(x)
-        # print('after layer1.size:', x.size())
-        # x = self.maxpool2(x)
-        # print('after maxpool2.size:', x.size())
         x = self.layer2(x)
-        # print('after layer2.size:', x.size())
         x = self.layer3(x)
-        # print('after layer3.size:', x.size())
         x = self.layer4(x)
-        # print('after layer4.size:', x.size())
 
         x = self.avgpool(x)
         x = x.view(x.size(0), -1)
         x = self.cls(x)
 
-        # input('oo')
         return x
 
     def load_pretrained_weights(self, imagenet_name=None):

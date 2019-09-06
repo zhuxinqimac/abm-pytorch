@@ -270,11 +270,6 @@ class res_IABP(nn.Module):
                                      stride=(2, 1, 1),
                                      padding=0)
         self.layer1 = self._make_layer(block, 64, layers[0])
-        # self.layer2 = self._make_layer(block, 128, layers[1], stride=2)
-        # self.layer3 = self._make_layer(block, 256, layers[2], stride=2)
-        # self.layer4 = self._make_layer(block, 512, layers[3], stride=2)
-        # self.layer1 = self._make_layer_abp(block, abpblock,
-        # 64, layers[0], tlen=self.tlen)
         self.layer2 = self._make_layer_abp(block,
                                            abpblock,
                                            128,

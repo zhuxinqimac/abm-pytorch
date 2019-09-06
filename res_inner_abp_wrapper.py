@@ -114,16 +114,6 @@ class ResIABPWrapper(res_IABP):
         # print('after layer1.size:', x.size())
         x = self.layer2(x)
         # print('after layer2.size:', x.size())
-
-        # temporal maxpooling
-        # (_, dim2, h2, w2) = x.size()
-        # x = x.view(b, short_len, dim2, h2, w2)
-        # x = x.transpose(1,2).contiguous()
-        # x = self.maxpool2(x)
-        # x = x.transpose(1,2).contiguous()
-        # x = x.view(b*short_len//2, dim2, h2, w2)
-
-        # print('after maxpool2.size:', x.size())
         x = self.layer3(x)
         # print('after layer3.size:', x.size())
         x = self.layer4(x)
@@ -144,40 +134,3 @@ class ResIABPWrapper(res_IABP):
         trainable = list(self.parameters())
         return [{'params': trainable, 'lr_mult': 1, 'decay_mult': 1, 
                 'name': "trainable parameters"}]
-
-    # def get_optim_policies(self):
-        # self.key_names = ['to_rank_1', 'to_rank_2', 'top_b1', 
-                # 'to_2rank_1', 'to_2rank_2', 'top_b2', 
-                # 'to_3rank_1', 'to_3rank_2', 'fc2']
-
-        # # self.general_names = [
-                # # # 'conv1', 'bn1'
-                # # # 'layer1', 
-                # # # 'layer2', 
-                # # 'layer3', 'layer4']
-        # # general_parameters = []
-        # # key_parameters = []
-        # # for k, v in self.named_parameters():
-            # # if k.split('.')[0] in self.key_names:
-                # # key_parameters.append(v)
-                # # continue
-            # # elif k.split('.')[0] in self.general_names:
-                # # general_parameters.append(v)
-                # # continue
-            # # else:
-                # # v.requires_grad = False
-
-        # general_parameters = []
-        # key_parameters = []
-        # for k, v in self.named_parameters():
-            # if k.split('.')[0] in self.key_names:
-                # key_parameters.append(v)
-            # else:
-                # general_parameters.append(v)
-        # parameters = []
-        # parameters.append({'params': general_parameters, 'lr_mult': 1.0, 
-            # 'decay_mult': 1., 'name': 'general_params'})
-        # parameters.append({'params': key_parameters, 'lr_mult': 1.0, 
-            # 'decay_mult': 1., 'name': 'key_params'})
-        # return parameters
-

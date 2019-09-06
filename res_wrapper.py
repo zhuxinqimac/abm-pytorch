@@ -189,30 +189,3 @@ class ResWrapper(res_SF):
             'decay_mult': 1,
             'name': "trainable parameters"
         }]
-
-    # def get_optim_policies(self):
-    # self.key_names = [
-    # 'to_rank_1', 'to_rank_2', 'top_b1', 'to_2rank_1', 'to_2rank_2',
-    # 'top_b2', 'to_3rank_1', 'to_3rank_2', 'fc2'
-    # ]
-    # general_parameters = []
-    # key_parameters = []
-    # for k, v in self.named_parameters():
-    # if k.split('.')[0] in self.key_names:
-    # key_parameters.append(v)
-    # else:
-    # general_parameters.append(v)
-    # parameters = []
-    # parameters.append({
-    # 'params': general_parameters,
-    # 'lr_mult': 1.0,
-    # 'decay_mult': 1.,
-    # 'name': 'general_params'
-    # })
-    # parameters.append({
-    # 'params': key_parameters,
-    # 'lr_mult': 1.0,
-    # 'decay_mult': 1.,
-    # 'name': 'key_params'
-    # })
-    # return parameters
