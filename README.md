@@ -1,4 +1,4 @@
-## Code of paper: Approximated Bilinear Modules for Temporal Modeling (accepted by ICCV2019)
+## Code of paper: Approximated Bilinear Modules for Temporal Modeling
 
 ### Environment:
 * Python 3.6.8
