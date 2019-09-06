@@ -34,7 +34,7 @@ to extract rgb frames and optical flow.
 
 ### Training
 You can use scripts provided in res_train.sh to train different models.
-For example, to train an implanted ABM model with backbone 34, 
+For example, to train an implanted ABM model with backbone res34, 
 snippet sampling 3 (denoted as new_length in code), 16 frames, 
 and RGB modality, you can run:
 ```
