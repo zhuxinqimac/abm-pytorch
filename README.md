@@ -77,11 +77,7 @@ python main.py something RGB \
 If you use this code or idea, please cite our paper:
 ```
 @inproceedings{ABM_iccv19,
-author={Xinqi Zhu and
-               Chang Xu and
-               Langwen Hui and 
-               Cewu Lu and 
-               Dacheng Tao},
+author={Xinqi Zhu and Chang Xu and Langwen Hui and Cewu Lu and Dacheng Tao},
 title={Approximated Bilinear Modules for Temporal Modeling},
 booktitle={ICCV},
 year={2019}
