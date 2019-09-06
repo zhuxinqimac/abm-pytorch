@@ -75,6 +75,7 @@ python main.py something RGB \
 
 #### Citation
 If you use this code or idea, please cite our paper:
+```
 @inproceedings{ABM_iccv19,
 author={Xinqi Zhu and
                Chang Xu and
@@ -85,3 +86,4 @@ title={Approximated Bilinear Modules for Temporal Modeling},
 booktitle={ICCV},
 year={2019}
 }
+```
