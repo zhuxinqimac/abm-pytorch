@@ -70,7 +70,7 @@ python main.py something RGB \
     --resume sth_v1_results/iabp/rgb_res50/_rgb_ep_35_checkpoint.pth.tar
 ```
 
-#### Citation
+### Citation
 If you use this code or idea, please cite our paper:
 ```
 @inproceedings{ABM_iccv19,
