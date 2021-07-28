@@ -1,5 +1,7 @@
 ## Code of paper: Approximated Bilinear Modules for Temporal Modeling
 
+![architecture](./imgs/iccv19_architecture.png?raw=true)
+
 ### Abstract
 
 We consider two less-emphasized temporal properties of video: 1. Temporal 
