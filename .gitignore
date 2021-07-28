@@ -1,3 +1,5 @@
 # Ignore outputs
 sth_v1_results/
 sth_v2_results/
+.*.sw*
+*/.*.sw*
