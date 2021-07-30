@@ -1,8 +1,6 @@
 ## Code of paper: Approximated Bilinear Modules for Temporal Modeling
 
-![architecture](./imgs/iccv19_architecture.png?raw=true)
-
-### Abstract
+## Abstract
 
 We consider two less-emphasized temporal properties of video: 1. Temporal 
 cues are fine-grained; 2. Temporal modeling needs reasoning. To tackle 
@@ -23,6 +21,14 @@ proposed techniques. Our models can outperform most state-of-the-art
 methods on Something-Something v1 and v2 datasets without Kinetics 
 pretraining, and are also competitive on other YouTube-like action 
 recognition datasets.
+
+## Model Architecture
+
+![architecture](./imgs/iccv19_architecture.png?raw=true)
+
+## Conference Poster
+
+![poster](./imgs/Xinqi_Zhu_poster.png?raw=true)
 
 ### Environment:
 * Python 3.6.8
